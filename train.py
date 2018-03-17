@@ -8,15 +8,11 @@ EPOCHS = 1000
 LEARNING_RATE = 0.01
 MODEL_NAME = 'test'
 
-np.random.seed(0)
-
 if not os.path.exists(SAVE_PATH):
     os.mkdir(SAVE_PATH)
 
 data = (np.random.rand(DATA_SIZE, 2), np.random.rand(DATA_SIZE, 1))
 test = (np.random.rand(DATA_SIZE // 8, 2), np.random.rand(DATA_SIZE // 8, 1))
-
-tf.set_random_seed(0)
 
 tf.reset_default_graph()
 
@@ -45,8 +41,6 @@ with tf.Session() as sess:
         print("saved at {}".format(path))
     else:
         print("Restoring")
-        # sess.run(tf.global_variables_initializer())
-
         graph = tf.get_default_graph()
         saver = tf.train.import_meta_graph(checkpoint + '.meta')
         saver.restore(sess, checkpoint)
@@ -54,5 +48,6 @@ with tf.Session() as sess:
         loss = graph.get_tensor_by_name('loss:0')
 
         test_loss = sess.run(loss, feed_dict={'inputs:0': test[0], 'targets:0': test[1]})
+        print(sess.run(pred, feed_dict={'inputs:0': np.random.rand(10,2)}))
         print("TEST LOSS = {:0.4f}".format(test_loss))
 
