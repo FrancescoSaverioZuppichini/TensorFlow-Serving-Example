@@ -1,3 +1,3 @@
 # TensorFlow Serving Example
 
-## Work in progress -> Medium article out soon :)
+Code example for my medium article https://towardsdatascience.com/deploy-tensorflow-models-9813b5a705d5
